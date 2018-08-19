@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Hello User</title>
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <h1>Hello,
+        <%= user.name %>
+    </h1>
+    <div class="edit-page">
+        <div class="form">
+            <form method="post">
+
+                <h3>Current Name :
+                    <%= user.name %>
+                </h3>
+                <input type="text" name="name" placeholder="New Name" />
+                <h4>New Profile Picture</h4>
+                <input type="file" id="image" name="image" placeholder="New Profile Picture" required>
+                <p style="color: red;">
+                    <%= typeof msg != 'undefined' ? msg : '' %>
+                </p>
+                <button type="submit">Update My Profile</button>
+                <p class="message">
+                    <a href="/user/<%= user.email %>">Go Back</a>
+                </p>
+        </div>
+        </form>
+</body>
+
+</html>

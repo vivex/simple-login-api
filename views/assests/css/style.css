@@ -151,6 +151,12 @@ h4 {
   background: #43a047;
 }
 
+.edit-page {
+  width: 450px;
+  padding: 8% 0 0;
+  margin: auto;
+}
+
 body {
   background: #76b852; /* fallback for old browsers */
   background: -webkit-linear-gradient(right, #76b852, #8dc26f);

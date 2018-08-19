@@ -95,7 +95,7 @@ router.post("/user/login", (req, res) => {
 });
 
 // USER PROFILE
-router.get("/user/:username", verifyToken, (req, res, next) => {
+router.get("/user/:username", (req, res, next) => {
   var username = req.params.username;
   User.findOne({ email: username }, (err, data) => {
     if (err) throw err;
@@ -116,5 +116,13 @@ function verifyToken(req, res, next) {
     }
   });
 }
+
+router.get("/user/edit/:username", (req, res, next) => {
+  var username = req.params.username;
+  User.findOne({ email: username }, (err, data) => {
+    if (err) throw err;
+    res.render("edit", { user: data });
+  });
+});
 
 module.exports = router;
