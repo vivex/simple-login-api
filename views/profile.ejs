@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Hello User</title>
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <h1>Hello,
+        <%= user.name %>
+    </h1>
+    <div class="profile-page">
+        <div class="profile-picture">
+            <img src="/uploads/<%= user.profileImage %>">
+        </div>
+        <h3>Name :
+            <%= user.name %>
+        </h3>
+        <h3>Email :
+            <%= user.email %>
+        </h3>
+        <a href="/user/login/<%= user.email %>">
+            <button>Edit</button>
+        </a>
+    </div>
+
+</body>
+
+</html>

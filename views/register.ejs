@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Login / SignUp</title>
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <h1>Register</h1>
+    <script>
+        var check = function () {
+            if (document.getElementById('password').value.length <= 7) {
+                document.getElementById('message').style.color = '#00008B';
+                document.getElementById('message').innerHTML = 'Password shoud be atleast 8 character long';
+            }
+            else {
+                if (document.getElementById('password').value !=
+                    document.getElementById('confirm_password').value) {
+                    document.getElementById('message').style.color = '#8B0000';
+                    document.getElementById('message').innerHTML = "Password and Confirm Password should match.";
+                    document.getElementById('submit').disabled = true;
+                }
+                if ((document.getElementById('password').value ==
+                    document.getElementById('confirm_password').value) &&
+                    (document.getElementById('password').value != '')) {
+                    document.getElementById('message').innerHTML = '';
+                }
+                if ((document.getElementById('password').value ==
+                    document.getElementById('confirm_password').value) &&
+                    (document.getElementById('password').value != '') &&
+                    (document.getElementById('name').value != '') &&
+                    (document.getElementById('email').value != '')) {
+                    document.getElementById('submit').disabled = false;
+                    document.getElementById('message').style.color = '#228B22';
+                    document.getElementById('message').innerHTML = 'Passwords matches.';
+                }
+            }
+
+        }
+    </script>
+    <div class="login-page">
+        <div class="form">
+            <!-- Register Form -->
+            <%= typeof msg != 'undefined' ? msg : '' %>
+                <form method="POST" enctype="multipart/form-data">
+                    <input type="text" id="name" name="name" placeholder="Name" required/>
+                    <input type="email" id="email" name="email" placeholder="Email address" required/>
+                    <input type="password" id="password" name="password" placeholder="Password" onkeyup='check();' required/>
+                    <input type="password" id="confirm_password" placeholder="Confirm Password" onkeyup='check();' required/>
+                    <h4>Profile Picture</h4>
+                    <input type="file" id="image" name="image" placeholder="Profile Picture" required>
+                    <span id='message'></span>
+                    <button type="submit" id="submit" disabled>create</button>
+                    <p class="message">Already registered?
+                        <a href="/user/login">Sign In</a>
+                    </p>
+                </form>
+        </div>
+    </div>
+</body>
+
+</html>

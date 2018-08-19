@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Login / SignUp</title>
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <h1>Log In</h1>
+    <div class="login-page">
+        <div class="form">
+            <!-- Login Form -->
+            <form method="post">
+                <input type="text" name="username" placeholder="username" />
+                <input type="password" name="password" placeholder="password" />
+                <p style="color: red;">
+                    <%= typeof msg != 'undefined' ? msg : '' %>
+                </p>
+                <button type="submit">Login</button>
+                <p class="message">Not registered?
+                    <a href="/user/register">Create an account</a>
+                </p>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
