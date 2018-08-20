@@ -12,8 +12,8 @@
         <div class="form">
             <!-- Login Form -->
             <form method="post">
-                <input type="text" name="username" placeholder="username" />
-                <input type="password" name="password" placeholder="password" />
+                <input type="email" name="username" placeholder="username" required />
+                <input type="password" name="password" placeholder="password" required/>
                 <p style="color: red;">
                     <%= typeof msg != 'undefined' ? msg : '' %>
                 </p>
