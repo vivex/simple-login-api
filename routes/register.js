@@ -1,8 +1,10 @@
+// Sign Up route: /user/register
+
 const express = require("express");
 const multer = require("multer");
 const path = require("path");
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+const Joi = require("joi");
 
 const router = express.Router();
 

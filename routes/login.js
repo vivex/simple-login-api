@@ -1,6 +1,9 @@
+// Sign In route: /user/login
+
 const express = require("express");
-const multer = require("multer");
+const bcrypt = require("bcrypt");
 const router = express.Router();
+const jwt = require("jsonwebtoken");
 
 // Schema
 const User = require("../models/user");
@@ -22,7 +25,7 @@ router.post("/", (req, res) => {
       let token = jwt.sign({ username: data.email }, "$@qw1P", {
         expiresIn: "3h"
       });
-      res.redirect({ token: token }, "/user/" + data.email);
+      res.redirect("/user/" + data.email);
     } else {
       console.log("Hello");
       res.render("login", { msg: "incorrect password" });
