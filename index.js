@@ -1,22 +1,28 @@
+// MAIN FILE
+
+//requiring all required npm modules
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const app = express();
 
+//requiring all routes
 const register = require("./routes/register");
 const login = require("./routes/login");
 const edit = require("./routes/edit");
 const profile = require("./routes/profile");
 
-//const UserServices = require("./services/user-services");
-// EJS
+// Setting View Engine as EJS
 app.set("view engine", "ejs");
+
 // Static folder
 app.use(express.static("./views/assests"));
+
+//Use Body Parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-//app.use("/user", UserServices);
 
+//Defining rutes
 app.use("/user/login", login);
 app.use("/user/register", register);
 app.use("/user", profile);

@@ -60,9 +60,8 @@ router.post("", (req, res) => {
         !req.body.confirm_password ||
         req.body.confirm_password != req.body.password
       ) {
-        res.render("register", {
-          msg: "password and confirm password doesn't match"
-        });
+        res.json("password and confirm password doesn't match");
+        // .render("register", {msg: "password and confirm password doesn't match"})
       }
       var data = {};
       data.name = req.body.name;
@@ -72,6 +71,10 @@ router.post("", (req, res) => {
       console.log("Hi data", data);
 
       var myData = new User(data);
+      var err = myData.joiValidate(data);
+      if (err) {
+        res.json("Invalid input");
+      }
       myData.save((err, data) => {
         if (err) {
           throw err;
