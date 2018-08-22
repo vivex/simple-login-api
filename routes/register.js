@@ -4,7 +4,6 @@ const express = require("express");
 const multer = require("multer");
 const path = require("path");
 const bcrypt = require("bcrypt");
-const Joi = require("joi");
 
 const router = express.Router();
 
@@ -48,41 +47,45 @@ function checkFileType(file, cb) {
 
 // Register Page
 router.get("", (req, res) => {
+  console.log('GET REGISTER');
   res.render("register");
 });
 
 router.post("", (req, res) => {
-  upload(req, res, err => {
-    if (err) {
-      return res.render("register", { msg: err });
-    } else {
-      if (
-        !req.body.confirm_password ||
-        req.body.confirm_password != req.body.password
-      ) {
-        res.json("password and confirm password doesn't match");
-        // .render("register", {msg: "password and confirm password doesn't match"})
-      }
-      var data = {};
-      data.name = req.body.name;
-      data.email = req.body.email;
-      data.password = bcrypt.hashSync(req.body.password, 10);
-      data.profileImage = req.file.filename;
-      console.log("Hi data", data);
-
-      var myData = new User(data);
-      var err = myData.joiValidate(data);
-      if (err) {
-        res.json("Invalid input");
-      }
-      myData.save((err, data) => {
+    upload(req, res, err => {
         if (err) {
-          throw err;
+            //TODO: use res.redirect() instead of render
+            return res.render("register", {msg: err});
+        } else {
+            if (!req.body.confirm_password ||
+                req.body.confirm_password != req.body.password) {
+                res.json("password and confirm password doesn't match");
+                // .render("register", {msg: "password and confirm password doesn't match"})
+            }
+            var data = {};
+            data.name = req.body.name;
+            data.email = req.body.email;
+            data.password = bcrypt.hashSync(req.body.password, 10);
+            data.profileImage = req.file.filename;
+
+            var myData = new User(data);
+            var validate = myData.joiValidate(data);
+            if (validate.error) {
+                return res.json(validate.error);
+            }
+            //TODO Add check for unique email
+            myData.save((err, data) => {
+                if (err) {
+                    throw err;
+                }
+            });
+            if (req.accepts('html')) {
+                return res.redirect("/user/login");
+            } else {
+                return res.json(data);
+            }
         }
-      });
-      res.redirect("/user/login");
-    }
-  });
+    });
 });
 
 module.exports = router;

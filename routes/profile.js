@@ -7,11 +7,15 @@ const router = express.Router();
 const User = require("../models/user");
 
 // USER PROFILE
-router.get("/:username", (req, res, next) => {
-  var username = req.params.username;
+router.get("/", (req, res, next) => {
+  var username = req._username;
   User.findOne({ email: username }, (err, data) => {
     if (err) throw err;
-    res.render("profile", { user: data });
+      if (req.accepts('json')) {
+        res.json(data);
+      } else {
+          res.render("profile", { user: data });
+      }
   });
 });
 
